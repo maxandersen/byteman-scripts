@@ -1,0 +1,24 @@
+## 
+RULE trace File.delete
+CLASS java.io.File
+METHOD delete
+AT ENTRY
+IF $0.getName().contains(System.getProperty("org.jboss.byteman.ext",".yaml"))
+DO traceStack("file.delete " + $0.getName() + "\n")
+ENDRULE
+
+RULE trace nio.Files.delete
+CLASS java.nio.file.Files
+METHOD delete
+AT ENTRY
+IF $1.toString().contains(System.getProperty("org.jboss.byteman.ext",".yaml"))
+DO traceStack("Files.delete " + $1 + "\n")
+ENDRULE
+
+RULE trace java.io.DeleteOnExitHook
+CLASS java.io.DeleteOnExitHook
+METHOD runHooks
+AT ENTRY
+IF true
+DO traceStack("DeleteOnExit " + java.io.DeleteOnExitHook.files + "\n")
+ENDRULE

@@ -1,0 +1,11 @@
+# Byteman scripts 
+
+And ever(?) growing collection of Byteman scripts for testing and debugging.
+
+track file deletions:
+
+```
+jbang --javaagent=byteman@bytemanproject=script:scripts/filedelete.btm,boot:`jbang info classpath byteman@bytemanproject`,prop:org.jboss.byteman.ext=txt yourscript.java
+```
+
+
