@@ -15,6 +15,14 @@ IF $1.toString().contains(System.getProperty("org.jboss.byteman.ext",".yaml"))
 DO traceStack("Files.delete " + $1 + "\n")
 ENDRULE
 
+RULE trace nio.Files.deleteIfExists
+CLASS java.nio.file.Files
+METHOD deleteIfExists
+AT ENTRY
+IF $1.toString().contains(System.getProperty("org.jboss.byteman.ext",".yaml"))
+DO traceStack("Files.delete " + $1 + "\n")
+ENDRULE
+
 RULE trace java.io.DeleteOnExitHook
 CLASS java.io.DeleteOnExitHook
 METHOD runHooks
